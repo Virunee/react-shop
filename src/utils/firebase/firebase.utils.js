@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword  } from 'firebase/auth';
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
 
 // Your web app's Firebase configuration
@@ -24,6 +24,19 @@ const firebaseConfig = {
   export const auth = getAuth()
   export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
   export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
+  export const signInWithEmail = async (email, password) => {
+    if( !email || !password) return;
+    return await signInWithEmailAndPassword(auth, email, password)
+  }
+  // .then((userCredential) => {
+  //   // Signed in 
+  //   const user = userCredential.user;
+  //   // ...
+  // })
+  // .catch((error) => {
+  //   const errorCode = error.code;
+  //   const errorMessage = error.message;
+  // });
 
   // Instantiate db
   export const db = getFirestore();
